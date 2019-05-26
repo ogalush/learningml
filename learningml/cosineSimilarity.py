@@ -11,21 +11,29 @@ Created on 2019/05/26
 # 参考
 # 【Python】コサイン類似度
 # https://qiita.com/Qiitaman/items/fa393d93ce8e61a857b1
+# 実行例
+# ----
+# Macbook1:learningml ogalush$ python3 cosineSimilarity.py 
+# bengoshi0 bengoshi0 1.0
+# bengoshi0 bengoshi1 0.7351
+# bengoshi0 bengoshi2 0.8155
+# ...(略)...
+# ----
 
 # モジュールのimport
 import numpy as np
 import json
+
 # コサイン類似度計算
 def cos_sim(v1, v2):
     return round(np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2)), 4)
-# MAIN
-# ファイルを開く
-json_file = open('/Users/ogalush/git/learningml/learningml/bengoshi.json', 'r')
 
-# JSONを読み込み
+# MAIN
+# JSON読込み
+json_file = open('/Users/ogalush/git/learningml/learningml/bengoshi.json', 'r')
 json_obj  = json.load(json_file)
 
-#　値の取り出し
+#　値の取得
 for i in range(0, 9, 1):
   XHash = json_obj['bengoshi' + str(i)]
   XList = XHash.values()
@@ -33,6 +41,5 @@ for i in range(0, 9, 1):
     YHash = json_obj['bengoshi' + str(j)]
     YList = YHash.values()
 
-    # 計算結果出力
+    # コサイン類似度の計算と結果出力
     print ('bengoshi' + str(i) + ' ' + 'bengoshi' + str(j) + ' ' + str(cos_sim(list(XList), list(YList))))
-    #print(cos_sim(list(XList), list(YList))) 
